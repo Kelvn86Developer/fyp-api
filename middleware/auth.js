@@ -1,0 +1,21 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+// GET THE TOKEN
+// CHECK IF THE TOKEN EXISTS
+
+export default function (req, res, next) {
+    const token = req.header('x-auth-token');
+    if(!token){
+        return res.status(401).json({msg: "No token, Authorization denied"});
+    }
+    try {
+        const decoded = jwt.verify(token, "kelvinkd");
+        req.user = decoded.user;
+        next();
+    } catch (error) {
+        res.status(401).json({msg: "Invalid token"});
+    }
+}
