@@ -3,18 +3,18 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // get user
-export const getUser = (req,res) => {
-  const email = req.user.email;
-  const q = "SELECT * FROM users WHERE email = ?";
-  Conn.query(q, [email], (err, results) => {
-    if (err) {
-      res.status(400).json({ message: err });
-    }
-    const {password, ...others} = results[0];
-    res.status(200).json({ message: others});
-  });
+// export const getUser = (req,res) => {
+//   const email = req.user.email;
+//   const q = "SELECT * FROM users WHERE email = ?";
+//   Conn.query(q, [email], (err, results) => {
+//     if (err) {
+//       res.status(400).json({ message: err });
+//     }
+//     const {password, ...others} = results[0];
+//     res.status(200).json({ message: others});
+//   });
   
-};
+// };
 
 // authenticate user
 export const authenticate = (req,res)=> {
@@ -38,8 +38,8 @@ export const authenticate = (req,res)=> {
           }
         }
         const token = jwt.sign(payload, "kelvinkd");
-        const {password, ...others} = results[0];
-        return res.status(200).json({ data: others, message: "Login successfully", token: token });
+        console.log(results)
+        return res.status(200).json({ message: "Login successfully", token: token });
       }
      
     }

@@ -1,9 +1,12 @@
 import express, { json } from 'express';
 import connectDB from './config/db.js';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
-const PORT = process.env.PORT || 8800;
+const PORT = process.env.PORT || 5000;
 
+app.use(cors());
 // @routes starts
 import USERS from './routes/users.js';
 import AUTH from './routes/auth.js';
